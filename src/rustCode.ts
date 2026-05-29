@@ -747,6 +747,19 @@ jobs:
         with:
           target: x86_64-pc-windows-msvc
 
+      - name: Cache Cargo Dependencies and Target
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: \${{ runner.os }}-cargo-\${{ hashFiles('**/Cargo.toml') }}
+          restore-keys: |
+            \${{ runner.os }}-cargo-
+
       - name: Setup VCPKG Binary Caching
         uses: actions/github-script@v6
         with:
