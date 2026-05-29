@@ -1,0 +1,6 @@
+{
+  "name": "Veil Browser Workspace",
+  "description": "Interactive development workbench, code playground, and high-fidelity desktop simulator for Veil: the independent Rust and WebKit-based privacy browser for Windows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
