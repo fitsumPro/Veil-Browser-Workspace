@@ -272,6 +272,10 @@ if not exist "src\\utils" mkdir "src\\utils"
 if not exist "wix" mkdir "wix"
 if not exist ".github" mkdir ".github"
 if not exist ".github\\workflows" mkdir ".github\\workflows"
+if not exist "assets" mkdir "assets"
+
+echo Creating branding icon file: assets\\veil.ico ...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "[System.IO.File]::WriteAllBytes('assets\\veil.ico', [System.Convert]::FromBase64String('AAABAAEAEBAAAAEAIABoAQAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8Apv8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8AAP8V/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/wAA/sQ='))"
 
 echo.
 echo [2/4] Recreating source files...
@@ -282,7 +286,7 @@ echo [2/4] Recreating source files...
       const base64Content = btoa(unescape(encodeURIComponent(file.content)));
       const escapedPath = file.path.replace(/\//g, "\\");
       script += `echo Creating file: ${escapedPath} ...\n`;
-      script += `powershell -NoProfile -ExecutionPolicy Bypass -Command "$dir = [System.IO.Path]::GetDirectoryName('${escapedPath}'); if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }; [System.IO.File]::WriteAllText('${escapedPath}', [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('${base64Content}')))"\n\n`;
+      script += `powershell -NoProfile -ExecutionPolicy Bypass -Command "$dir = [System.IO.Path]::GetDirectoryName('${escapedPath}'); if ($dir -and $dir -ne '' -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }; [System.IO.File]::WriteAllText('${escapedPath}', [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('${base64Content}')))"\n\n`;
     });
 
     script += `

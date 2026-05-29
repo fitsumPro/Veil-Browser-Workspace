@@ -770,12 +770,12 @@ jobs:
 
       - name: Setup WiX Toolset Compile Chain
         run: |
-          dotnet tool install --global wix
+          "C:\Program Files (x86)\WiX Toolset v3.11\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - name: Compile and Link MSI Package
         run: |
-          wix candle wix/veil.wxs -out wix/veil.wixobj
-          wix light wix/veil.wixobj -out target/release/veil-installer.msi
+          candle wix/veil.wxs -out wix/veil.wixobj
+          light wix/veil.wixobj -out target/release/veil-installer.msi
 
       - name: Upload Signed Release Assets
         uses: softprops/action-gh-release@v1
